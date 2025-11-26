@@ -7,10 +7,14 @@ import { store } from './app/store'
 import './style.css'
 
 const enableMocking = async () => {
-  if (import.meta.env.DEV) {
-    const { worker } = await import('./mocks/browser')
-    await worker.start({ onUnhandledRequest: 'bypass' })
-  }
+  if (typeof window === 'undefined') return
+  const { worker } = await import('./mocks/browser')
+  await worker.start({
+    onUnhandledRequest: 'bypass',
+    serviceWorker: {
+      url: '/mockServiceWorker.js',
+    },
+  })
 }
 
 enableMocking().finally(() => {
