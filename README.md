@@ -25,15 +25,15 @@ Modern React + TypeScript demo that showcases a complete auth + tasks workflow w
 
 ## Getting Started
 ```bash
-npm install
-npm run dev
+npm install      # install dependencies
+npm run dev      # start Vite dev server (MSW auto-starts in dev)
 ```
-Visit `http://localhost:5173` and use the demo credentials above.
+Visit `http://localhost:5173` and use the demo credentials above (or create a new account on the Sign Up page).
 
-### Production build
+### Production build / local preview
 ```bash
-npm run build
-npm run preview
+npm run build    # emits static assets into dist/
+npm run preview  # optional: serve the dist bundle locally
 ```
 
 ## Mock API Details
@@ -61,7 +61,18 @@ All handlers live in `src/mocks/handlers.ts`, and sample data/in-memory operatio
 - Dark mode is toggled by storing `tm_theme` in `localStorage` and toggling the `dark` class on the document root.
 
 ## Deployment
-The project builds to static assets (`npm run build`) suitable for Vercel, Netlify, or any static host. Deploy by pointing the host at the repo and using the build command `npm run build` with output directory `dist`. Once deployed, share the resulting URL in this section.
+This repo includes `vercel.json` so Vercel automatically runs `npm run build` and serves `dist`.
+
+### Deploy to Vercel
+1. Push the project to a Git repo (GitHub/GitLab/Bitbucket).
+2. In Vercel, **New Project → Import Repo**.
+3. Set:
+   - **Framework Preset**: Vite (auto-detected).
+   - **Build Command**: `npm run build` (default from `vercel.json`).
+   - **Output Directory**: `dist`.
+4. Deploy. Vercel will install dependencies, build, and host the static bundle.
+
+No environment variables are required—the mock API and persistence live entirely in the browser. For local development you still use `npm run dev` (MSW worker only starts in dev; production uses the built assets without MSW).
 
 ## Further Ideas
 - Add Formik + Yup to power richer validation flows.
